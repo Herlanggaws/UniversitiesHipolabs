@@ -1,22 +1,16 @@
 plugins {
-	id("org.conventions.app")
-	id("org.conventions.hilt")
+	id("org.conventions.lib")
 	id("org.conventions.compose")
+	id("org.conventions.hilt")
 	alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-	namespace = "com.herlangga.universitieshipolabs"
+	namespace = "com.herlangga.university"
 
 	defaultConfig {
-		applicationId = "com.herlangga.universitieshipolabs"
-		versionCode = 1
-		versionName = "1.0"
-
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-		vectorDrawables {
-			useSupportLibrary = true
-		}
+		consumerProguardFiles("consumer-rules.pro")
 	}
 
 	buildTypes {
@@ -28,18 +22,10 @@ android {
 			)
 		}
 	}
-	packaging {
-		resources {
-			excludes += "/META-INF/{AL2.0,LGPL2.1}"
-		}
-	}
 }
 
 dependencies {
 	implementation(project(":core"))
-	implementation(project(":university"))
-	implementation(libs.androidx.material3.android)
-	implementation(libs.androidx.ui.tooling.preview.android)
 	testImplementation(libs.junit)
 	androidTestImplementation(libs.androidx.junit)
 	androidTestImplementation(libs.androidx.espresso.core)

@@ -1,4 +1,4 @@
-package com.herlangga.universitieshipolabs
+package com.herlangga.university.presentation.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -9,14 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.herlangga.core.ui.theme.Black
 import com.herlangga.core.ui.theme.White
-import com.herlangga.universitieshipolabs.navigation.Destination
 
 /**
  * Designed and developed by Herlangga Wicaksono on 04/01/25.
  * @LinkedIn (https://www.linkedin.com/in/herlangga-wicaksono-4072a5a2/)
  */
 @Composable
-fun FavoritesScreen(
+fun SearchScreen (
 	navHostController: NavHostController
 ) {
 	Column(
@@ -25,7 +24,7 @@ fun FavoritesScreen(
 			.background(White)
 	) {
 		Text(
-			text = "Favorites Screen",
+			text = "Search Screen",
 			color = Black
 		)
 		Button(onClick = {

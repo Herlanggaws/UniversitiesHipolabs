@@ -12,10 +12,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.herlangga.universitieshipolabs.DetailScreen
-import com.herlangga.universitieshipolabs.FavoritesScreen
-import com.herlangga.universitieshipolabs.HomeScreen
-import com.herlangga.universitieshipolabs.SearchScreen
+import com.herlangga.core.navigation.Routes
+import com.herlangga.university.presentation.detail.DetailScreen
+import com.herlangga.university.presentation.favourite.FavoritesScreen
+import com.herlangga.university.presentation.home.HomeScreen
+import com.herlangga.university.presentation.search.SearchScreen
 
 /**
  * Designed and developed by Herlangga Wicaksono on 04/01/25.

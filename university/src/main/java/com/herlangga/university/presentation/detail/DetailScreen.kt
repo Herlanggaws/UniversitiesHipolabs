@@ -1,4 +1,4 @@
-package com.herlangga.universitieshipolabs
+package com.herlangga.university.presentation.detail
 
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -13,8 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView

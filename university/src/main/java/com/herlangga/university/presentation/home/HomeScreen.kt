@@ -1,4 +1,4 @@
-package com.herlangga.universitieshipolabs
+package com.herlangga.university.presentation.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -10,12 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.herlangga.core.navigation.Destination
 import com.herlangga.core.ui.theme.Black
 import com.herlangga.core.ui.theme.White
-import com.herlangga.universitieshipolabs.navigation.Destination
-import com.herlangga.universitieshipolabs.navigation.navigateToDetail
-import com.herlangga.universitieshipolabs.navigation.navigateToFavorites
-import com.herlangga.universitieshipolabs.navigation.navigateToSearch
+import com.herlangga.core.utils.navigateToDetail
+import com.herlangga.core.utils.navigateToFavorites
+import com.herlangga.core.utils.navigateToSearch
 
 /**
  * Designed and developed by Herlangga Wicaksono on 04/01/25.

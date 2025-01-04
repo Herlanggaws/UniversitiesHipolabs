@@ -1,4 +1,4 @@
-package com.herlangga.core
+package com.herlangga.university
 
 import org.junit.Test
 

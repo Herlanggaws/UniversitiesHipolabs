@@ -1,6 +1,8 @@
-package com.herlangga.universitieshipolabs.navigation
+package com.herlangga.core.utils
 
 import androidx.navigation.NavHostController
+import com.herlangga.core.navigation.Destination
+import com.herlangga.core.navigation.Routes
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 

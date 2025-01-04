@@ -1,4 +1,4 @@
-package com.herlangga.universitieshipolabs.navigation
+package com.herlangga.core.navigation
 
 import kotlinx.serialization.Serializable
 

@@ -1,4 +1,4 @@
-package com.herlangga.universitieshipolabs.navigation
+package com.herlangga.core.navigation
 
 /**
  * Designed and developed by Herlangga Wicaksono on 04/01/25.
