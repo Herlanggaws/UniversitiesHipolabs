@@ -16,4 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Universities Hipolabs"
 include(":app")
- 
+include(":core")

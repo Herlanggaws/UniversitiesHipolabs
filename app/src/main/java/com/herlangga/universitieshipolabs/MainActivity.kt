@@ -11,7 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.herlangga.universitieshipolabs.ui.theme.UniversitiesHipolabsTheme
+import androidx.navigation.compose.rememberNavController
+import com.herlangga.core.ui.theme.UniversitiesHipolabsTheme
+import com.herlangga.universitieshipolabs.navigation.AppNavigation
 
 class MainActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,9 +22,12 @@ class MainActivity : ComponentActivity() {
 		setContent {
 			UniversitiesHipolabsTheme {
 				Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-					Greeting(
-						name = "Android",
-						modifier = Modifier.padding(innerPadding)
+					val navController = rememberNavController()
+					AppNavigation(
+						navController = navController,
+						modifier = Modifier
+							.fillMaxSize()
+							.padding(innerPadding),
 					)
 				}
 			}
