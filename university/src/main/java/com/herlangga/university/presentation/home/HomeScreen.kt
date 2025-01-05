@@ -1,6 +1,5 @@
 package com.herlangga.university.presentation.home
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -156,7 +155,6 @@ private fun NavHostController.onEvent(event: HomeEvent) {
 	when (event) {
 		HomeEvent.NavigateUp -> popBackStack()
 		HomeEvent.NavigateToSearch -> {
-			Log.i("elang", "elang NavigateToSearch")
 			navigateToSearch()
 		}
 
