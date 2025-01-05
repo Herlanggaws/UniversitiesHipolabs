@@ -70,12 +70,6 @@ fun UniversityItem(
 					color = Purple40
 				)
 			}
-
-			Text(
-				text = stringResource(R.string.label_add_to_fav),
-				style = Heading6,
-				color = Blue500
-			)
 		}
 
 
