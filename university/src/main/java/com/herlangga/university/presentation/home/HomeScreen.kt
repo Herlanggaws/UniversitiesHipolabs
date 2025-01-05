@@ -1,18 +1,25 @@
 package com.herlangga.university.presentation.home
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
@@ -25,10 +32,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -38,7 +47,12 @@ import androidx.navigation.NavHostController
 import com.herlangga.core.components.IconButton
 import com.herlangga.core.components.TextField
 import com.herlangga.core.navigation.Destination
+import com.herlangga.core.ui.theme.Blue200
+import com.herlangga.core.ui.theme.Blue500
 import com.herlangga.core.ui.theme.Heading4
+import com.herlangga.core.ui.theme.Heading5
+import com.herlangga.core.ui.theme.Heading7
+import com.herlangga.core.ui.theme.Natural00
 import com.herlangga.core.ui.theme.Natural50
 import com.herlangga.core.ui.theme.Natural500
 import com.herlangga.core.ui.theme.White
@@ -48,6 +62,8 @@ import com.herlangga.core.utils.navigateToFavorites
 import com.herlangga.core.utils.navigateToSearch
 import com.herlangga.university.R
 import com.herlangga.university.data.remote.UniversityQueryParams
+import com.herlangga.university.presentation.component.BannerSlider
+import com.herlangga.university.presentation.component.ScholarshipButton
 import com.herlangga.university.presentation.component.UniversityListComponent
 
 /**
@@ -62,7 +78,7 @@ fun HomeScreen(
 	val lifecycleOwner = LocalLifecycleOwner.current
 	LaunchedEffect(key1 = Unit) {
 		viewModel.getAllUniversity(
-			UniversityQueryParams("","")
+			UniversityQueryParams("", "")
 		)
 		viewModel.uiEvent.flowWithLifecycle(lifecycleOwner.lifecycle)
 			.collect(navHostController::onEvent)
@@ -87,71 +103,60 @@ fun HomeComponent(
 			.fillMaxSize()
 			.background(White)
 	) {
-		Text(
-			modifier = Modifier
-				.fillMaxWidth()
-				.padding(horizontal = MaterialTheme.dimens.default)
-				.padding(top = MaterialTheme.dimens.spaceSmall),
-			text = stringResource(R.string.label_welcome),
-			style = Heading4,
-			color = Natural500
+		HorizontalDivider(
+			color = Natural50,
+			thickness = 1.dp
 		)
-
-		Row(
-			modifier = Modifier
-				.fillMaxWidth()
-				.padding(horizontal = MaterialTheme.dimens.default)
-				.padding(top = MaterialTheme.dimens.spaceSmall),
-			verticalAlignment = Alignment.CenterVertically
-		) {
-			TextField(
-				value = "",
-				hint = "Search University",
-				onValueChanged = {
-				},
-				trailingIcon = {
-					Image(
-						painter = painterResource(R.drawable.ic_search_normal),
-						contentDescription = null,
-						modifier = Modifier
-							.size(MaterialTheme.dimens.iconSmall)
-							.clickable(
-								interactionSource = remember { MutableInteractionSource() },
-								indication = rememberRipple(bounded = false),
-								onClick = {
-
-								}
-							)
-					)
-				},
-				modifier = Modifier
-					.weight(1F)
-			)
-			Spacer(modifier.size(16.dp))
-			IconButton(
-				icon = R.drawable.ic_search_normal,
-				onClick = {
-					eventSender(HomeEvent.NavigateToFav)
-				},
-				backgroundColor = Color.White,
-				modifier = Modifier
-					.size(MaterialTheme.dimens.iconExtraLarge)
-					.border(width = 1.dp, color = Natural50, shape = CircleShape)
-			)
-		}
+		BannerSlider()
 		Spacer(modifier.size(16.dp))
 		HorizontalDivider(
 			color = Natural50,
 			thickness = 1.dp
 		)
-		Spacer(modifier.size(16.dp))
+		Row(
+			modifier = Modifier
+				.fillMaxWidth()
+				.padding(16.dp)
+		) {
+			ScholarshipButton(
+				modifier = Modifier.weight(1F)
+			) {
+				eventSender(HomeEvent.NavigateToSearch)
+			}
+			Spacer(modifier = Modifier.padding(8.dp))
+			ScholarshipButton(
+				modifier = Modifier.weight(1F)
+			) {
+				eventSender(HomeEvent.NavigateToSearch)
+			}
+		}
+		Row(
+			modifier = Modifier
+				.fillMaxWidth()
+				.padding(horizontal = 16.dp),
+			horizontalArrangement = Arrangement.SpaceBetween
+		) {
+			Text(
+				modifier = Modifier.weight(1F),
+				text = stringResource(R.string.label_the_university),
+				style = Heading5,
+				color = Blue500
+			)
+			Text(
+				modifier = Modifier.weight(1F),
+				text = stringResource(R.string.label_see_all),
+				style = Heading5,
+				color = Blue500,
+				textAlign = TextAlign.End
+			)
+		}
+		Spacer(modifier = Modifier.padding(8.dp))
+		HorizontalDivider(
+			color = Natural50,
+			thickness = 1.dp
+		)
 		UniversityListComponent(uiState, modifier = Modifier.fillMaxWidth()) {
 			eventSender(HomeEvent.NavigateToUniversityDetail(it))
-		}
-		Button(onClick = {
-			eventSender(HomeEvent.NavigateToSearch)
-		}) {
-			Text(text = "Go to search")
 		}
 	}
 }
@@ -175,7 +180,11 @@ fun HomeComponentPreview() {
 private fun NavHostController.onEvent(event: HomeEvent) {
 	when (event) {
 		HomeEvent.NavigateUp -> popBackStack()
-		HomeEvent.NavigateToSearch -> navigateToSearch()
+		HomeEvent.NavigateToSearch -> {
+			Log.i("elang", "elang NavigateToSearch")
+			navigateToSearch()
+		}
+
 		is HomeEvent.NavigateToUniversityDetail -> navigateToDetail(Destination.DetailScreen(url = event.url))
 		HomeEvent.NavigateToFav -> navigateToFavorites()
 	}

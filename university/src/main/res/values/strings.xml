@@ -4,4 +4,8 @@
     <string name="label_visit_site">Visit Site</string>
     <string name="label_add_to_fav">Mark</string>
     <string name="label_empty_data">No universities found!</string>
+    <string name="label_get_scholarship_in_bandung">Get Scholarship in Bandung</string>
+    <string name="label_find_now">Find now</string>
+    <string name="label_the_university">The University</string>
+    <string name="label_see_all">See All</string>
 </resources>
