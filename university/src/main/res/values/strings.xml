@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_welcome">Welcome to Hipolabs!</string>
+    <string name="label_visit_site">Visit Site</string>
+    <string name="label_add_to_fav">Mark</string>
+</resources>
