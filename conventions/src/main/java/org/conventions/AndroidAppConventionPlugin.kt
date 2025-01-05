@@ -1,5 +1,6 @@
 package org.conventions
 
+import org.conventions.utils.addTestLib
 import org.conventions.utils.applyKotlinPlugins
 import org.conventions.utils.applyKspPlugins
 import org.conventions.utils.applyPluginsWithLog
@@ -11,14 +12,15 @@ import org.gradle.api.Project
  * @LinkedIn (https://www.linkedin.com/in/herlangga-wicaksono-4072a5a2/)
  */
 class AndroidAppConventionPlugin : Plugin<Project> {
- override fun apply(target: Project) {
-  with(target) {
-   with(pluginManager) {
-    applyPluginsWithLog("com.android.application")
-    applyKotlinPlugins()
-    applyKspPlugins()
-    applyPluginsWithLog("org.conventions.target")
-   }
-  }
- }
+	override fun apply(target: Project) {
+		with(target) {
+			with(pluginManager) {
+				applyPluginsWithLog("com.android.application")
+				applyKotlinPlugins()
+				applyKspPlugins()
+				applyPluginsWithLog("org.conventions.target")
+			}
+			addTestLib()
+		}
+	}
 }

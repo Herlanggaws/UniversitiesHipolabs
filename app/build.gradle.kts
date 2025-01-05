@@ -2,6 +2,7 @@ plugins {
 	id("org.conventions.app")
 	id("org.conventions.hilt")
 	id("org.conventions.compose")
+	alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -35,6 +36,8 @@ android {
 }
 
 dependencies {
+	implementation(project(":core"))
+	implementation(project(":university"))
 	implementation(libs.androidx.material3.android)
 	implementation(libs.androidx.ui.tooling.preview.android)
 	testImplementation(libs.junit)

@@ -1,4 +1,4 @@
-package com.herlangga.universitieshipolabs.ui.theme
+package com.herlangga.core.ui.theme
 
 import android.app.Activity
 import android.os.Build

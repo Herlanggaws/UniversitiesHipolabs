@@ -2,6 +2,7 @@ package org.conventions.utils
 
 import org.gradle.api.Project
 import org.gradle.api.plugins.PluginManager
+import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.the
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import kotlin.jvm.optionals.getOrNull
@@ -28,6 +29,10 @@ fun Project.applyKotlinPlugins() {
 	with(pluginManager) {
 		applyPluginsWithLog("kotlin-android")
 		applyPluginsWithLog("kotlin-parcelize")
+		dependencies {
+			findLibs("kotlin-serialization")?.let { implementationWithLog(it) }
+			findLibs("kotlin-coroutines")?.let { implementationWithLog(it) }
+		}
 	}
 }
 
