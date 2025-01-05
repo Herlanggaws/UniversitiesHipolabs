@@ -9,14 +9,14 @@ import com.squareup.moshi.Json
  */
 data class University(
 	val country: String,
-	val domain: String,
+	val domain: List<String>,
 	val name: String,
-	val webPage: String
+	val webPage: List<String>
 ) {
 	constructor(data: UniversityResponse?) : this(
 		country = data?.country.orEmpty(),
-		domain = data?.domain.orEmpty(),
+		domain = data?.domain?.filterNotNull().orEmpty(),
 		name = data?.name.orEmpty(),
-		webPage = data?.webPage.orEmpty(),
+		webPage = data?.webPage?.filterNotNull().orEmpty(),
 	)
 }

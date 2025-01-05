@@ -9,10 +9,10 @@ import com.google.gson.annotations.SerializedName
 data class UniversityResponse(
     @SerializedName("country")
     val country: String?,
-    @SerializedName("domain")
-    val domain: String?,
+    @SerializedName("domains")
+    val domain: List<String?>?,
     @SerializedName("name")
     val name: String?,
-    @SerializedName("web_page")
-    val webPage: String?
+    @SerializedName("web_pages")
+    val webPage: List<String?>?
 )

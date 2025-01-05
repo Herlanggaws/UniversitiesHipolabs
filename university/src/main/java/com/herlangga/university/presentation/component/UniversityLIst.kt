@@ -1,5 +1,6 @@
 package com.herlangga.university.presentation.component
 
+import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,9 +14,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.herlangga.core.components.MultiStateView
-import com.herlangga.core.domain.model.ViewState
+import androidx.compose.runtime.State
 import com.herlangga.core.ui.theme.White
 import com.herlangga.core.ui.theme.dimens
+import com.herlangga.university.presentation.home.HomeUIState
 
 /**
  * Designed and developed by Herlangga Wicaksono on 05/01/25.
@@ -23,11 +25,11 @@ import com.herlangga.core.ui.theme.dimens
  */
 @Composable
 fun UniversityListComponent(
-	universityList: List<String>,
+	uiState: State<HomeUIState>,
 	modifier: Modifier = Modifier,
 	onItemClicked: (String) -> Unit = {}
 ) {
-	MultiStateView(state = ViewState.Loading, loadingLayout = {
+	MultiStateView(state = uiState.value.viewState, loadingLayout = {
 		LazyColumn(
 			modifier = Modifier
 				.fillMaxWidth()
@@ -48,9 +50,12 @@ fun UniversityListComponent(
 				.animateContentSize(),
 			verticalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.spaceSmall)
 		) {
-			items(items = universityList) {
-				UniversityItem() {
-					onItemClicked("gunadarma.ac.id")
+			items(items = uiState.value.universityList) {
+				UniversityItem(
+					it.name,
+					it.webPage.first()
+				) { webPage ->
+					onItemClicked(webPage)
 				}
 			}
 		}

@@ -1,6 +1,7 @@
 package com.herlangga.university.data
 
 import android.provider.SyncStateContract
+import android.util.Log
 import com.herlangga.core.utils.Constants
 import com.herlangga.core.utils.getErrorMessage
 import com.herlangga.university.data.remote.UniversityQueryParams
@@ -27,7 +28,8 @@ class UniversityRepositoryImpl @Inject constructor(
 	override fun getAllUniversity(request: UniversityQueryParams): Flow<Resource<List<University>>>  = flow {
 		remoteDataSource.getAllSchedule(request.getQueryParams()).let {
 			it.suspendOnSuccess {
-				emit(Resource.Success(data?.map { University(it) }.orEmpty()))
+				Log.i("elang", "elang UniversityRepositoryImpl ${data.first().domain}")
+				emit(Resource.Success(data.map { University(it) }))
 			}.suspendOnError {
 				emit(Resource.Error(getErrorMessage()))
 			}.suspendOnException {

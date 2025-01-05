@@ -4,6 +4,7 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.kotlin.dsl.dependencies
 import kotlin.jvm.optionals.getOrNull
 
 /**
@@ -35,6 +36,11 @@ fun DependencyHandlerScope.androidTestImplementationPlatformWithLog(notation: Pr
 	printMessage("Adding android test platform library implementation: ${notation.orNull?.name}")
 }
 
+fun DependencyHandlerScope.testImplementationWithLog(notation: Provider<MinimalExternalModuleDependency>) {
+	add("testImplementation", notation)
+	printMessage("Adding test platform library implementation: ${notation.orNull?.name}")
+}
+
 fun DependencyHandlerScope.androidTestImplementationWithLog(notation: Provider<MinimalExternalModuleDependency>) {
 	add("androidTestImplementation", notation)
 	printMessage("Adding android test library implementation: ${notation.orNull?.name}")
@@ -55,6 +61,23 @@ fun Project.findLibs(
 		return null
 	}
 	return dependency
+}
+
+fun Project.addTestLib() {
+	dependencies {
+		libs.findLibrary("mockk").getOrNull()?.let {
+			testImplementationWithLog(it)
+		}
+		libs.findLibrary("turbine").getOrNull()?.let {
+			testImplementationWithLog(it)
+		}
+		libs.findLibrary("junit").getOrNull()?.let {
+			testImplementationWithLog(it)
+		}
+		libs.findLibrary("coroutine-test").getOrNull()?.let {
+			testImplementationWithLog(it)
+		}
+	}
 }
 
 fun Project.isAliasesExistOnBuildTools(vararg alias: String): Boolean {

@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.herlangga.core.ui.theme.Blue500
@@ -30,14 +31,16 @@ import com.herlangga.university.R
  */
 @Composable
 fun UniversityItem(
+	universityName: String,
+	webPage: String,
 	modifier: Modifier = Modifier,
-	OnStudentClick:() -> Unit
+	OnStudentClick: (String) -> Unit
 ) {
 	Column(
 		modifier = modifier
 			.background(White)
 	) {
-		Row (
+		Row(
 			modifier = Modifier
 				.fillMaxWidth()
 				.padding(16.dp),
@@ -45,18 +48,22 @@ fun UniversityItem(
 		) {
 			Column(
 				modifier = modifier
-					.weight(1F)
+					.weight(0.8F)
 					.background(White)
 			) {
 				Text(
-					text = "Universitas Indonesia",
+					modifier = Modifier
+						.padding(end = 16.dp),
+					text = universityName,
 					style = Heading6,
-					color = Blue500
+					color = Blue500,
+					maxLines = 1,
+					overflow = TextOverflow.Ellipsis
 				)
 				Spacer(modifier.size(8.dp))
 				Text(
 					modifier = Modifier.clickable {
-						OnStudentClick()
+						OnStudentClick(webPage)
 					},
 					text = stringResource(R.string.label_visit_site),
 					style = Body5,
@@ -82,7 +89,11 @@ fun UniversityItem(
 @Preview
 @Composable
 fun UniversityItemPreview() {
-	UniversityItem(modifier = Modifier) {
+	UniversityItem(
+		universityName = "Gunadarma",
+		webPage = "google.com",
+		modifier = Modifier
+	) {
 
 	}
 }

@@ -20,16 +20,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.NavHostController
 import com.herlangga.core.components.IconButton
 import com.herlangga.core.components.TextField
@@ -55,24 +59,31 @@ fun HomeScreen(
 	navHostController: NavHostController,
 	viewModel: HomeViewModel = hiltViewModel()
 ) {
-	val context = LocalContext.current
 	val lifecycleOwner = LocalLifecycleOwner.current
 	LaunchedEffect(key1 = Unit) {
 		viewModel.getAllUniversity(
 			UniversityQueryParams("","")
 		)
+		viewModel.uiEvent.flowWithLifecycle(lifecycleOwner.lifecycle)
+			.collect(navHostController::onEvent)
 	}
 
-	HomeComponent(navHostController)
+	val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+
+	HomeComponent(
+		uiState = uiState,
+		eventSender = viewModel::onEvent
+	)
 }
 
 @Composable
 fun HomeComponent(
-	navHostController: NavHostController,
+	uiState: State<HomeUIState>,
 	modifier: Modifier = Modifier,
+	eventSender: (HomeEvent) -> Unit
 ) {
 	Column(
-		modifier = androidx.compose.ui.Modifier
+		modifier = Modifier
 			.fillMaxSize()
 			.background(White)
 	) {
@@ -120,7 +131,7 @@ fun HomeComponent(
 			IconButton(
 				icon = R.drawable.ic_search_normal,
 				onClick = {
-					navHostController.navigateToFavorites()
+					eventSender(HomeEvent.NavigateToFav)
 				},
 				backgroundColor = Color.White,
 				modifier = Modifier
@@ -134,13 +145,39 @@ fun HomeComponent(
 			thickness = 1.dp
 		)
 		Spacer(modifier.size(16.dp))
-		UniversityListComponent(listOf("1","","1","","1","","1","","1","","1","","1","","1","","1","","1","","1","","1",""), modifier = Modifier.fillMaxWidth()) {
-			navHostController.navigateToDetail(Destination.DetailScreen(url = it))
+		UniversityListComponent(uiState, modifier = Modifier.fillMaxWidth()) {
+			eventSender(HomeEvent.NavigateToUniversityDetail(it))
 		}
 		Button(onClick = {
-			navHostController.navigateToSearch()
+			eventSender(HomeEvent.NavigateToSearch)
 		}) {
 			Text(text = "Go to search")
 		}
 	}
 }
+
+@Preview
+@Composable
+fun HomeComponentPreview() {
+	val uiState: State<HomeUIState> = remember {
+		mutableStateOf(
+			HomeUIState(
+				universityList = listOf(),
+			)
+		)
+	}
+	HomeComponent(
+		uiState = uiState
+	) { }
+}
+
+
+private fun NavHostController.onEvent(event: HomeEvent) {
+	when (event) {
+		HomeEvent.NavigateUp -> popBackStack()
+		HomeEvent.NavigateToSearch -> navigateToSearch()
+		is HomeEvent.NavigateToUniversityDetail -> navigateToDetail(Destination.DetailScreen(url = event.url))
+		HomeEvent.NavigateToFav -> navigateToFavorites()
+	}
+}
+
