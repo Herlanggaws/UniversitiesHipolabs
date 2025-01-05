@@ -27,7 +27,7 @@ fun UniversityListComponent(
 	modifier: Modifier = Modifier,
 	onItemClicked: (String) -> Unit = {}
 ) {
-	MultiStateView(state = ViewState.Content, loadingLayout = {
+	MultiStateView(state = ViewState.Loading, loadingLayout = {
 		LazyColumn(
 			modifier = Modifier
 				.fillMaxWidth()
@@ -35,11 +35,11 @@ fun UniversityListComponent(
 			verticalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.spaceTinyLarge)
 		) {
 			items(10) {
-//				StudentItemShimmer()
+				StudentScheduleShimmer()
 			}
 		}
 	}, emptyLayout = {
-//		EmptyStudentComponent()
+		EmptyUniveristyComponent()
 	}, content = {
 		LazyColumn(
 			modifier = modifier

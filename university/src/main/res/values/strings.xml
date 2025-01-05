@@ -3,4 +3,5 @@
     <string name="label_welcome">Welcome to Hipolabs!</string>
     <string name="label_visit_site">Visit Site</string>
     <string name="label_add_to_fav">Mark</string>
+    <string name="label_empty_data">No universities found!</string>
 </resources>
