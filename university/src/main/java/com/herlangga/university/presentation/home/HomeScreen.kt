@@ -31,6 +31,7 @@ import com.herlangga.core.ui.theme.Blue500
 import com.herlangga.core.ui.theme.Heading5
 import com.herlangga.core.ui.theme.Natural50
 import com.herlangga.core.ui.theme.White
+import com.herlangga.core.utils.clickable
 import com.herlangga.core.utils.navigateToDetail
 import com.herlangga.core.utils.navigateToFavorites
 import com.herlangga.core.utils.navigateToSearch
@@ -117,7 +118,9 @@ fun HomeComponent(
 				color = Blue500
 			)
 			Text(
-				modifier = Modifier.weight(1F),
+				modifier = Modifier.weight(1F).clickable {
+					eventSender(HomeEvent.NavigateToSearch)
+				},
 				text = stringResource(R.string.label_see_all),
 				style = Heading5,
 				color = Blue500,
