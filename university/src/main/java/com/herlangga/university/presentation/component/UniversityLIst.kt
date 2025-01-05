@@ -15,8 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.herlangga.core.components.MultiStateView
 import androidx.compose.runtime.State
+import com.herlangga.core.domain.model.ViewState
 import com.herlangga.core.ui.theme.White
 import com.herlangga.core.ui.theme.dimens
+import com.herlangga.university.domain.model.University
 import com.herlangga.university.presentation.home.HomeUIState
 
 /**
@@ -25,11 +27,12 @@ import com.herlangga.university.presentation.home.HomeUIState
  */
 @Composable
 fun UniversityListComponent(
-	uiState: State<HomeUIState>,
+	universityList: List<University>,
+	viewState: ViewState,
 	modifier: Modifier = Modifier,
 	onItemClicked: (String) -> Unit = {}
 ) {
-	MultiStateView(state = uiState.value.viewState, loadingLayout = {
+	MultiStateView(state = viewState, loadingLayout = {
 		LazyColumn(
 			modifier = Modifier
 				.fillMaxWidth()
@@ -50,7 +53,7 @@ fun UniversityListComponent(
 				.animateContentSize(),
 			verticalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.spaceSmall)
 		) {
-			items(items = uiState.value.universityList) {
+			items(items = universityList) {
 				UniversityItem(
 					it.name,
 					it.webPage.first()
