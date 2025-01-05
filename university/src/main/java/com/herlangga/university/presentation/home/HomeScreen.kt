@@ -19,13 +19,17 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.herlangga.core.components.IconButton
 import com.herlangga.core.components.TextField
@@ -39,6 +43,7 @@ import com.herlangga.core.utils.navigateToDetail
 import com.herlangga.core.utils.navigateToFavorites
 import com.herlangga.core.utils.navigateToSearch
 import com.herlangga.university.R
+import com.herlangga.university.data.remote.UniversityQueryParams
 import com.herlangga.university.presentation.component.UniversityListComponent
 
 /**
@@ -47,8 +52,17 @@ import com.herlangga.university.presentation.component.UniversityListComponent
  */
 @Composable
 fun HomeScreen(
-	navHostController: NavHostController
+	navHostController: NavHostController,
+	viewModel: HomeViewModel = hiltViewModel()
 ) {
+	val context = LocalContext.current
+	val lifecycleOwner = LocalLifecycleOwner.current
+	LaunchedEffect(key1 = Unit) {
+		viewModel.getAllUniversity(
+			UniversityQueryParams("","")
+		)
+	}
+
 	HomeComponent(navHostController)
 }
 
