@@ -6,5 +6,6 @@ package com.herlangga.university.presentation.search
  */
 sealed class SearchEvent {
 	data object NavigateUp : SearchEvent()
-	data class OnSearch(val name: String) : SearchEvent()
+	data class OnSearch(val query: String) : SearchEvent()
+	data class NavigateToUniversityDetail(val url: String): SearchEvent()
 }

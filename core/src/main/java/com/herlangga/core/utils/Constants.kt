@@ -6,4 +6,5 @@ package com.herlangga.core.utils
  */
 object Constants {
 	const val DEFAULT_ERROR_MESSAGE = "Oops, something went wrong!"
+	const val CREDENTIALS = "credentials"
 }

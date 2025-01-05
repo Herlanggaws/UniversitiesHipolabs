@@ -52,6 +52,9 @@ dependencies {
 	debugImplementation(libs.chucker)
 	releaseImplementation(libs.chucker.no.op)
 
+	implementation(libs.datastore)
+	implementation(libs.datastore.core)
+
 	api(libs.bundles.moshi)
 	ksp(libs.moshi.codegen)
 
