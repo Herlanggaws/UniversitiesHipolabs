@@ -42,7 +42,6 @@ class HomeViewModel @Inject constructor(
 			when (result) {
 				is Resource.Error -> {
 					_uiState.update { it.copy(viewState = ViewState.Error(result.message)) }
-					_uiEvent.send(HomeEvent.NavigateUp)
 				}
 				is Resource.Loading -> {
 					_uiState.update { it.copy(viewState = ViewState.Loading) }
